@@ -1,0 +1,46 @@
+{% extends 'layouts/main.twig' %}
+
+{% block main_content %}
+
+<div class="slideshow-home-hero swiper{{ post.meta('hero')|length > 1 ? ' js-home-slideshow' }}">
+    <div class="swiper-wrapper">
+
+        <!-- Slides -->
+        {% for slide in post.meta('hero') %}
+        <div class="swiper-slide">
+            {% include 'partials/hero.twig' with { hero : slide } %}
+        </div><!-- //.swiper-slide -->
+        {% endfor %}
+
+    </div>
+    {% if post.meta('hero')|length > 1 %}
+    <div class="swiper-pagination"></div>
+
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+    {% endif %}
+</div>
+
+{# HOMEPAGE INTRO #}
+{% include 'partials/content-layouts/standard_content.twig'
+    with {
+        layout : post.meta('intro_content')
+    }
+%}
+
+{# HOMEPAGE POSTS #}
+{% include 'partials/content-layouts/feature_posts.twig'
+    with {
+        layout : post.meta('latest_posts')
+    }
+%}
+
+{# HOMEPAGE CTA #}
+{% include 'partials/content-layouts/call_to_action.twig'
+    with {
+        layout : post.meta('call_to_action')
+    }
+%}
+
+
+{% endblock %}

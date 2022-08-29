@@ -1,0 +1,22 @@
+# NOTE: In the dev environment, this file needs to live at /app/wp/.htaccess
+# READ MORE: https://wordpress.org/support/article/create-a-network/#step-2-allow-multisite
+
+# BEGIN WordPress
+
+# These are special rules for Multisite setup.
+
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+
+# add a trailing slash to /wp-admin
+RewriteRule ^wp-admin$ wp-admin/ [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+RewriteRule ^(wp-(content|admin|includes).*) $1 [L]
+RewriteRule ^(.*\.php)$ $1 [L]
+RewriteRule . index.php [L]
+
+# END WordPress

@@ -1,0 +1,76 @@
+/* =================
+    HERO
+    * this can be used as a stand alone element or as a slide in a slideshow
+==================== */
+@hero-height: ~'clamp(450px, 80vh, min(900px, 70vw))';
+
+.hero{
+    position: relative;
+    display: grid;
+    height: @hero-height;
+    grid-template-areas: "stack";
+    place-items: center;
+
+    > * {  grid-area: stack; }
+
+}//end .hero
+
+.hero__background{
+    position: relative;
+    width: 100%;
+	height: @hero-height;
+	background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    //overlay background
+    &:before {
+        content: "";
+        .element-overlay(@black, .5);
+    }
+}
+
+.hero__content{
+    position: relative;
+    padding: 20px;
+    max-width: 940px;
+    text-align: center;
+
+    .title{ margin: 0; color: @white; }
+    .subtext{ margin-top: 10px; color: @white; }
+    .btn { margin: 20px 0 0 0; }
+
+    @media @mobile-all{
+        .title{ font-size: 3.2rem; }
+        .subtext{ font-size: 1.4rem; }
+    }
+}//end .caption
+
+
+//hide left/right controls for mobile
+.slideshow-home-hero{
+    @media @mobile-all{
+        .swiper-button-prev,
+        .swiper-button-next{ display: none; }
+    }
+}
+
+
+//base print styles
+@media print{
+    .slideshow-home-hero{
+        .swiper-slide{ display: none; }
+        .swiper-slide:first-child{ 
+            display: block; 
+            width: 100% !important;
+            transform: none !important;
+        }
+    }
+    .hero{
+        padding: 30px 0 0;
+        height: auto;
+
+        .hero__background{ display: none; }
+        .hero_content{ opacity: 1 !important; transform: none !important; }
+    }
+}

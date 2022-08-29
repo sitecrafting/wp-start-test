@@ -1,0 +1,37 @@
+//
+// Basic print styles
+// --------------------------------------------------
+// Source: https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css
+
+@media print {
+
+    * {
+        text-shadow: none !important;
+        color: #000 !important; // Black prints faster: h5bp.com/s
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    @page { margin: 2cm .5cm; }
+
+    a, a:visited { text-decoration: underline; }
+
+    pre, 
+    blockquote,
+    tr,
+    img { page-break-inside: avoid; }
+
+    h2, h3 { page-break-after: avoid; }
+
+    p, h2, h3 { orphans: 3; widows: 3; }
+
+    header{ border-bottom: 1px solid #ccc; }
+    header, header .container{ height: auto; }
+    header nav{ display: none; }
+    nav.subnav{ display: none; }
+    footer .social{ display: none; }
+
+    .btn{ border: 1px solid #ccc; }
+
+
+}

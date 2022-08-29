@@ -1,0 +1,15 @@
+.lando.yml
+test
+phpunit.*
+/composer.*
+node_modules
+.env*
+lando_config
+deploy
+.git*
+yarn.lock
+bitbucket-pipelines.yml
+rsync_exclude.txt
+/wp/wp-content/uploads/
+/infra
+wp/.well-known

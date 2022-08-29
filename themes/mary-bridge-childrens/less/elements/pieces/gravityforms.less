@@ -1,0 +1,164 @@
+/* ==========================
+    GRAVITY FORMS
+    - Adjustment to built in gravity form styles
+    - gravity form stylehsheet is enqueued after our styles so we have to make sure our specificity is up really high
+=============================*/
+body .gform_wrapper.gravity-theme{
+
+    .gform_validation_errors{
+        background: transparent;
+        border-radius: 0;
+        border: 0;
+        background: @gray-f3;
+        border-left: 2px solid @error;
+        box-shadow: none;
+        margin: 0 0 20px 0;
+        padding: 25px 25px 25px 25px;
+
+        > h2{
+            font-size: 2.4rem;
+            line-height: 1.2;
+            font-weight: @headings-font-weight;
+            color: @text-color;
+
+            .gform-icon{ display: none; }
+        }
+    }
+
+    .gform_heading{
+        margin-bottom: 2rem;
+
+        //h2
+        .gform_title{ margin: 0; }
+        .gform_description{
+            display: block;
+            margin-top: 1rem;
+        }
+
+        .gform_required_legend{ 
+            margin-top: 1rem;
+            font-size: 1.4rem;
+        }
+
+    }
+
+    .gfield_required{
+        color: @error;
+        font-size: inherit;
+    }
+
+    .gform_fields{
+        grid-row-gap: 3rem;
+    }
+
+    .gfield_label{
+        .field-label();
+        color: @text-color;
+    }
+
+
+    input[type=color],
+    input[type=date], 
+    input[type=datetime-local], 
+    input[type=datetime], 
+    input[type=email], 
+    input[type=month], 
+    input[type=number], 
+    input[type=password], 
+    input[type=search], 
+    input[type=tel], 
+    input[type=text], 
+    input[type=time], 
+    input[type=url], 
+    input[type=week], 
+    select, 
+    textarea{
+        .form-control();
+    }
+
+    select{
+        .form-control--select();
+    }
+
+    //correction for custom styled radio/checkboxes
+    .gchoice{
+        position: relative;
+    }
+    .gfield_checkbox label, 
+    .gfield_radio label{
+        font-size: @input-font-size;
+    }
+
+    .gfield_error{
+        input[type="checkbox"] + label, input[type="radio"] + label{
+            color: inherit;
+        }
+    }
+
+    //section field
+    .gsection{
+        padding: 0 0 1.5rem;
+
+        //h3
+        .gsection_title{ margin: 0; }
+        .gsection_description{ 
+            display: block;
+            margin: .5rem 0 0 0;
+            padding: 0;
+            .body-copy();
+        }
+    }
+
+    //time field corrections
+    .ginput_container_time{
+        flex-basis: auto;
+        max-width: none;
+    }
+    .hour_minute_colon{ align-self: center; }
+
+    //file upload
+    .gform_fileupload_rules{
+        font-size: 1.4rem;
+    }
+
+    .ginput_complex label{
+        font-size: 1.4rem;
+        font-weight: 400;
+    }
+
+
+    //FIELD ERRORS
+    .gfield_error [aria-invalid=true]{
+        border-color: @error;
+        //background-color: lighten(@error, 48%);
+    }
+    .gfield_validation_message{
+        background: transparent;
+        border: 0;
+        padding: 0;
+        font-size: 1.4rem;
+        color: @error;
+        font-weight: 700;
+        &:before{
+            content: "*";
+        }
+    }
+}
+
+//CONFIRMATION
+.gform_confirmation_wrapper{
+    margin: 40px 0;
+    .gform_confirmation_message{
+        position: relative;
+        background: @gray-f3;
+        border: 0;
+        border-left: 2px solid @blue;
+        overflow: hidden;
+        box-shadow: none;
+        margin: 0;
+        padding: 17px 15px 17px 25px;
+
+        font-size: 1.6rem;
+        line-height: 1.7;
+    }
+}

@@ -1,0 +1,32 @@
+# Ignore artifacts/ghost files
+.DS_Store
+._*
+config.codekit
+
+# Dev/test dependencies/artifacts
+/node_modules
+/vendor
+/js/browserified
+.lando.local.yml
+*.sql
+*.sql.gz
+
+# Test artifacts
+/cypress/videos/
+
+# Webpack artifacts
+/dist/style.js
+
+# documentation artifacts, for serving doc sites locally
+_book/
+/docs/reference/*.md
+
+# Misc WordPress things
+*.log
+/wp-content/uploads/
+wp
+.env/packagist
+
+# Frontend assets are built at deploy time.
+assets.version
+*.version

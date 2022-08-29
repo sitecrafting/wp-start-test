@@ -1,0 +1,139 @@
+name: mary-bridge-childrens
+recipe: wordpress
+config:
+  webroot: ./wp/
+  php: '7.4'
+  via: nginx:1.18
+  composer_version: 2
+
+services:
+  appserver:
+    ssl: true
+    overrides:
+      environment:
+        COMPOSER_AUTH: $COMPOSER_AUTH
+    config:
+      vhosts: lando_config/nginx/server.conf
+      php: lando_config/php/php.ini
+
+    build_as_root:
+      - apt-get update
+      - apt-get install zip jq vpnc -y
+
+    build:
+      - composer install --prefer-dist --no-interaction --optimize-autoloader
+
+    run:
+      # - ./bin/install.sh --files --flush-cache
+      #- ./bin/install-wp-tests.sh
+
+  database:
+    type: mysql:5.7
+    portforward: true
+    creds:
+      user: wordpress
+      password: wordpress
+      database: wordpress
+
+  testdb:
+    type: mysql:5.7
+    portforward: true
+    creds:
+      user: test
+      password: test
+      database: test
+
+  cache:
+    type: redis:5
+    portforward: true
+    persist: true
+
+  node:
+    type: node
+
+    globals:
+      yarn: "^1.6"
+
+    run:
+      - cd themes/mary-bridge-childrens && yarn --frozen-lockfile && yarn webpack
+
+  mailhog:
+    type: mailhog:v1.0.0
+    hogfrom:
+      - appserver
+
+tooling:
+
+  setup-files:
+    service: appserver
+    cmd: './bin/setup-files.sh'
+    description: 'Run the bin/setup-files.sh deploy script directly'
+
+  install:
+    service: appserver
+    cmd: './bin/install.sh'
+    description: 'Install and configure WordPress'
+
+  install-wp-tests:
+    service: appserver
+    cmd: /app/bin/install-wp-tests.sh
+    description: 'Install the WP test suite'
+
+  clean:
+    service: appserver
+    cmd: 'rm -rf vendor/ wp/'
+    description: 'Remove various installed/compiled assets for a clean slate'
+
+  yarn:
+    service: node
+    cmd: yarn
+    description: 'Run arbitrary yarn commands'
+
+  webpack:
+    service: node
+    cmd: 'node_modules/.bin/webpack'
+    description: 'Run arbitrary webpack commands'
+
+  redis:
+    service: cache
+    cmd: redis-cli
+    description: 'Run redis-cli commands in the cache container'
+
+  test:
+    service: appserver
+    cmd: /app/vendor/bin/phpunit
+    description: 'Run all PHPUnit test suites'
+
+  unit:
+    service: appserver
+    cmd: /app/vendor/bin/phpunit --testsuite unit
+    description: 'Run unit tests'
+
+  integration:
+    service: appserver
+    cmd: /app/vendor/bin/phpunit --testsuite integration
+    description: 'Run integration tests'
+
+  debug:
+    service: appserver
+    cmd: touch /app/wp/wp-content/debug.log && tail -f /app/wp/wp-content/debug.log
+    description: 'Tail the WP debug log forever (Ctrl+C to exit)'
+
+  debug-tests:
+    service: appserver
+    cmd: touch /app/test/wp/wp-content/debug.log && tail -f /app/test/wp/wp-content/debug.log
+    description: 'Tail the WP TEST debug log forever (Ctrl+C to exit)'
+
+  reset-db:
+    service: database
+    cmd: gunzip < lando_config/mysql/db-base.sql.gz | mysql -u root wordpress
+    description: 'Reset database to the initial state.'
+
+
+# Add .lndo proxies for working offline
+proxy:
+  mailhog:
+    - mail.mary-bridge-childrens.lndo.site
+
+  appserver_nginx:
+    - mary-bridge-childrens.lndo.site

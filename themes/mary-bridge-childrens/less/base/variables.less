@@ -1,0 +1,95 @@
+//
+// Variables
+// --------------------------------------------------
+
+
+// Public paths
+// -------------------------
+//
+// Theme path - use this for referring to other, non-LESS/CSS resources
+// The value is automatically passed in to this file via webpack at build time,
+// and will be formatted '/wp-content/themes/{theme-directory-name}/'
+//
+// Example usage:
+//
+// * { background-image: url('@{theme-path}img/icons/my-icon.svg'); }
+@theme-path: '/wp-content/themes/groot/';
+
+
+// Grays
+// -------------------------
+@gray-cc:                       #ccc;
+@gray-f3:                       #f3f3f3;
+
+// Brand colors
+// -------------------------
+@blue:                          darken(#00aeef, 5%);
+@error:                         red;
+
+@black:				            #000;
+@white:				            #fff;
+
+// Scaffolding
+// -------------------------
+@body-bg:                       @white;
+@text-color:                    @black;
+
+@trans-speed:			        250ms;
+
+@max-width:                     100%;
+@container-width:               1400px;
+
+@gutter:                        min(100px, 6vw);
+
+@off-canvas-width:		        250px;
+@header-height:                 90px;
+
+// Links
+// -------------------------
+@link-color:                    @blue;
+
+// Typography
+// -------------------------
+@font-family-base:              'Open Sans', arial, sans-serif;
+@font-family-headings:          'Open Sans',  arial, sans-serif;
+
+@font-size-base:                1.6rem;
+@line-height:        	        1.6;
+
+@font-size-h1:                  6.0rem; //60px
+@font-size-h2:                  5.0rem; //50px
+@font-size-h3:                  3.8rem; //38px
+@font-size-h4:                  2.8rem; //28px
+@font-size-h5:                  2.0rem; //20px
+@font-size-h6:                  1.8rem; //18px
+
+//smallest scaled font size for headlines
+@font-size-h1-m:                  4.8rem;
+@font-size-h2-m:                  3.0rem;
+@font-size-h3-m:                  2.8rem;
+@font-size-h4-m:                  2.2rem;
+@font-size-h5-m:                  1.8rem;
+@font-size-h6-m:                  1.6rem;
+
+@headings-font-weight:          700;
+@headings-line-height:          1.1;
+@headings-color:                @blue;
+
+
+// Media queries breakpoints
+// -------------------------
+// Breakpoints
+// -------------------------
+@mobile-sml:                ~"only screen and (max-width: 33.063em) "; // smaller than 529
+@mobile-lg:                 ~"only screen and (min-width: 33.125em) and (max-width: 47.938em)"; //between 530 - 767
+@mobile-all:                ~"only screen and (max-width: 47.938em)"; //small than 767
+
+@tablet-sml:                ~"only screen and (min-width: 48em) and (max-width: 55.563em)"; //768 - 889
+@tablet-lg:                 ~"only screen and (min-width: 55.625em) and (max-width: 63.938em)"; //890 - 1023
+@tablet-all:                ~"only screen and (min-width: 48em) and (max-width: 63.938em)"; //between 768 - 1023
+
+@desktop-sml:               ~"only screen and (min-width: 64em) and (max-width: 81.188em)"; //anything between 1024 - 1299
+@desktop-lg:                ~"only screen and (min-width: 81.25em)"; //anything larger than 1300
+@desktop-all:               ~"only screen and (min-width: 64em)"; //anything larger than 1024px
+
+@mobile-menu:               @desktop-sml, @tablet-all, @mobile-all;

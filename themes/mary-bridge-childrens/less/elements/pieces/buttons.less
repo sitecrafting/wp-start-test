@@ -1,0 +1,30 @@
+.btn, .gform_button{
+    display: inline-block;
+    padding: 15px 40px;
+    cursor: pointer;
+    border-radius: 0;
+    border: 0;
+
+    color: @white;
+    text-align: center;
+    text-transform: uppercase;
+    font: 700 1.6rem/1.1 @font-family-headings;
+
+    background: @blue;
+    -webkit-appearance: none;
+
+    transition: all @trans-speed ease;
+
+    &:hover {
+        text-decoration: none;
+        background: darken(@blue,5%);
+    }
+
+}
+
+.btn--disabled{
+    background: @gray-f3;
+    color: @black;
+    cursor: not-allowed;
+    &:hover{ background: @gray-f3; }
+}

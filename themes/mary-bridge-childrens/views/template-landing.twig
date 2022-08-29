@@ -1,0 +1,13 @@
+{% extends 'layouts/main.twig' %}
+
+{% block main_content %}
+<div class="sitka-search-content-container">
+
+{# HERO PAGE TITLE #}
+{% include 'partials/hero-interior.twig' with { page_title : post.meta('main_headline')|default(post.title) } %}
+
+{# FLEXIBLE LAYOUTS #}
+{% include 'partials/content-layouts.twig' with { layouts: post.meta('landing_layouts') } %}
+
+</div>
+{% endblock %}

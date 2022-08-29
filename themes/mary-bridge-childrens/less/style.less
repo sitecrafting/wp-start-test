@@ -1,0 +1,79 @@
+/*!
+ * Theme Name: Groot
+ * Theme URI: https://grootthe.me
+ * Author: SiteCrafting
+ * Author URI: https://www.sitecrafting.com/
+ * Description: The official SiteCrafting WordPress starter theme
+ *
+ * Copyright 2021 SiteCrafting, Inc.
+ * Based on Groot release: v0.7.7
+ */
+
+ /* Icon Reference:
+ https://app.streamlineicons.com/ - see designers for access */
+
+// Reset
+@import "base/reset.less";
+
+// Core variables and mixins
+@import "base/variables.less";
+@import "base/mixins.less";
+@import "base/magnific-popup.less"; 
+
+/* ====================
+    STRUCTURE FILES
+=======================*/
+@import "structure/flexboxgrid.less"; //flexbox layouts [OPTIONAL - use based on needs of the project]
+@import "structure/grid-layouts.less"; //grid layouts [OPTIONAL - use based on needs of the project]
+@import "structure/structure.less"; //gutters and other structural elements
+
+@import "structure/header.less";
+@import "structure/footer.less";
+
+/* =====================
+	NAVIGATION
+====================*/
+@import "structure/navigation.less"; //main header navigation
+@import "structure/subnav.less"; //secondary subnavgation
+
+/* ====================
+    ELEMENT/PIECES
+=======================*/
+@import "elements/pieces/global.less"; //global utility styles
+
+@import "elements/pieces/swiper.less"; //CUSTOMIZE SWIPER MODULES
+@import "elements/pieces/popup-search.less"; //basic inline search popup styles
+@import "elements/pieces/buttons.less";
+//@import "elements/pieces/datepicker.less"; //STARTER FOR IF DATEPICKER IS NEEDED/IN USE
+@import "elements/pieces/forms.less";
+@import "elements/pieces/category-filter.less";
+@import "elements/pieces/gravityforms.less"; //Gravity form customizations
+@import "elements/pieces/post-pagination.less"; //prev/next button pagination
+@import "elements/pieces/social.less";
+
+/* ====================
+    CARDS
+=======================*/
+@import "elements/cards/card-article.less";
+@import "elements/cards/card-search.less";
+
+/* ====================
+    LAYOUTS/PATTERNS
+=======================*/
+@import "elements/layouts/hero.less"; //hero/hero slideshow
+@import "elements/layouts/hero-interior.less";
+
+@import "elements/layouts/pattern.less"; //primary pattern styles and modifiers
+
+//specific patterns wrapped in pattern with optional modifiers
+@import "elements/layouts/pattern-accordion.less";
+@import "elements/layouts/pattern-gallery.less"; //gallery slideshow [swiper]
+@import "elements/layouts/pattern-testimonials.less";
+@import "elements/layouts/pattern-cta.less"; //specific pattern layout modifiers
+
+@import "elements/layouts/pattern-article.less"; //blog article pattern
+
+//SITKA
+//@import "elements/layouts/sitka-feedback-collector.less";
+
+.test{ color: red; }

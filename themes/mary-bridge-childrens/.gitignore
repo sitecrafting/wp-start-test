@@ -1,0 +1,23 @@
+# Ignore artifacts/ghost files
+.DS_Store
+._*
+config.codekit
+*.swp
+*.swo
+*.swn
+
+# Ignore dev dependencies
+/node_modules
+/bower_components
+/doc
+/vendor
+/wp
+/wp-content
+/js/browserified
+
+# Release artifacts
+/*.zip
+/*.tar
+/*.tar.gz
+/*.sql.gz
+/groot-v*/

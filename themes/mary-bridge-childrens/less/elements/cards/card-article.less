@@ -1,0 +1,39 @@
+.card-article{
+    margin: 0 0 20px 0;
+    width: 100%;
+	background: @gray-f3;
+	
+	.pattern--article-footer &{
+		//article-footer has a gray background so we want to reverse out the cards
+		background: @white;
+	}
+
+    .card-article__image{
+        img{ display: block; width: 100%; }
+    }
+
+    .card-article__content{
+        padding: 30px;
+
+        .title{ margin: 0 0 5px; }
+        .byline{ font-size: 1.2rem; }
+        .excerpt{ margin-top: 15px; }
+        .btn{ margin-top: 20px; }
+
+    }
+
+}
+
+.card-article--list{
+	padding: 15px;
+	.clearfix();
+
+	.card-article__image{
+		width: 30%;
+		float: left;
+
+		+ .card-article__content{ margin-left: 30%; padding-left: 15px; }
+	}
+
+	.card-article__content{ padding: 0; }
+}

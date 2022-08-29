@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>{% block title %}{{ wp_title }}{% endblock %}</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link rel="shortcut icon" type="image/png" href="{{ img_url('favicon.png') }}">
+	<link rel="apple-touch-icon" href="{{ img_url('favicon-76.png') }}" sizes="76x76">
+	<link rel="apple-touch-icon" href="{{ img_url('favicon-120.png') }}" sizes="120x120">
+	<link rel="apple-touch-icon" href="{{ img_url('favicon-152.png') }}" sizes="152x152">
+
+    {# GOOGLE FONT #}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+	{{ wp_head }}
+
+</head>
+<body class="{{ body_classes | join(' ') }}">
+
+{# necessary for tag manager plugin custom setting #}
+{{ gtm4wp_the_gtm_tag() }}
+
+<div class="site-wrapper"><div class="site-pusher">
+
+	{% block header %}
+		<header class="site-header" itemscope itemtype="http://schema.org/Organization">
+			<div class="container">
+
+				<a class="logo" href="/" title="{{ site.name }}" itemscope itemtype="http://schema.org/ImageObject">
+					{{ source('img/logo.svg') }}
+					<meta itemprop="logo" content="{{ img_url('logo@2x.png') }}">
+					<meta itemprop="name" content="{{ site.name }}">
+					<meta itemprop="url" content="{{ site.url }}">
+					<meta itemprop="description" content="{{ site.description }}">
+				</a>
+
+				<button class="menu-btn">
+				    <div class="toggle"><span></span><span></span><span></span><span></span></div>
+				    <span>Menu</span>
+				</button>
+
+				{% include 'partials/nav.twig' with { menu: primary_menu } only %}
+
+			</div>
+		</header>
+	{% endblock %}
+
+	<main class="site-main">
+		{% block main_content %}
+			Default main content
+		{% endblock %}
+	</main>
+
+	{% block footer %}
+		<footer class="site-footer outer-gutter">
+			<div class="container">
+				{% include 'partials/social.twig' %}
+				<p>&copy; {{ 'now' | date('Y') }} {{ site.name }}
+				{% for cplinks in get_theme_setting('copyright_links') %}
+					<a href="{{ cplinks.link.url }}" target="{{ cplinks.link.target }}">{{ cplinks.link.title }}</a>{{ loop.last ? '' : ' | ' }}
+				{% endfor %}
+				</p>
+				<p>
+					<a href="https://www.sitecrafting.com" target="_blank">Website Design and Development by SiteCrafting</a>
+				</p>
+			</div>
+		</footer>
+	{% endblock %}
+
+	{% include 'partials/popup-search.twig' %}
+
+</div></div><!-- //.site-pusher //.site-wrapper -->
+
+{# everything below here is included automagically by WP #}
+{{ wp_footer }}
+
+
+</body>
+</html>

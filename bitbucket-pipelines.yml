@@ -1,0 +1,122 @@
+image: atlassian/default-image:latest
+
+pipelines:
+  custom:
+    'clone-and-test':
+      - step:
+          name: "SSH & Run Script"
+          script:
+            # update values as necessary for your server environment
+            - ssh -p $SSH_PORT $SSH_USER@$BASTION_HOST "cd $STG_PATH; sudo ./vendor/bin/clone-wp;"
+    'infra-update':
+      - step:
+          name: RSYNC To Server
+          script:
+            - pipe: atlassian/rsync-deploy:0.7.1
+              variables:
+                USER: $SSH_USER
+                SERVER: $BASTION_HOST
+                SSH_PORT: $SSH_PORT
+                REMOTE_PATH: /usr/local/etc/nginx/
+                LOCAL_PATH: ./infra/nginx/
+                DEBUG: 'true'
+                EXTRA_ARGS: '-avzq --delete --links'
+      - step:
+          name: Bounce Nginx
+          script:
+            - ssh -p $SSH_PORT $SSH_USER@$BASTION_HOST "sudo ./bounce.sh;"
+
+  tags:
+    'stg-*.*.*':
+      - step:
+          name: Build Artifact
+          image: php:7.4
+          caches:
+            - composer
+            - node
+          script:
+            - apt-get update && apt-get install -y unzip nodejs git
+            - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+            - composer install --optimize-autoloader --no-dev --prefer-dist --no-interaction
+
+            - curl -o- -L https://yarnpkg.com/install.sh | bash -s
+            - export PATH=$HOME/.yarn/bin:$PATH
+
+            # Build theme assets
+            - (cd themes/mary-bridge-childrens && yarn && yarn webpack)
+
+
+          artifacts:
+            - wp/**
+            - vendor/**
+            - themes/**
+      - step:
+          name: RSYNC To Server
+          deployment: staging
+          script:
+            - "echo 'User-agent: *' >> robots.txt"
+            - "echo 'Disallow: /' >> robots.txt"
+            - pipe: atlassian/rsync-deploy:0.7.1
+              variables:
+                USER: $SSH_USER
+                SERVER: $BASTION_HOST
+                SSH_PORT: $SSH_PORT
+                REMOTE_PATH: $STG_PATH
+                LOCAL_PATH: '.'
+                DEBUG: 'true'
+                EXTRA_ARGS: '-avzq --delete --links --exclude-from=rsync_exclude.txt'
+      - step:
+          name: Post Deploy Tasks
+          clone:
+            enabled: false
+          artifacts:
+            download: false
+          script:
+            - ssh $SSH_USER@$BASTION_HOST -p $SSH_PORT "cd $STG_PATH/wp; wp cache flush;"
+
+
+    'prd-*.*.*':
+      - step:
+          name: Build Artifact
+          image: php:7.4
+          caches:
+            - composer
+            - node
+          script:
+            - apt-get update && apt-get install -y unzip nodejs git
+            - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+            - composer install --optimize-autoloader --no-dev --prefer-dist --no-interaction
+
+            - curl -o- -L https://yarnpkg.com/install.sh | bash -s
+            - export PATH=$HOME/.yarn/bin:$PATH
+
+            # Build theme assets
+            - (cd themes/mary-bridge-childrens && yarn && yarn webpack)
+
+
+
+          artifacts:
+            - wp/**
+            - vendor/**
+            - themes/**
+      - step:
+          name: RSYNC To Server
+          deployment: production
+          script:
+            - pipe: atlassian/rsync-deploy:0.7.1
+              variables:
+                USER: $SSH_USER
+                SERVER: $BASTION_HOST
+                SSH_PORT: $SSH_PORT
+                REMOTE_PATH: $PRD_PATH
+                LOCAL_PATH: '.'
+                DEBUG: 'true'
+                EXTRA_ARGS: '-avzq --delete --links --exclude-from=rsync_exclude.txt'
+      - step:
+          name: Post Deploy Tasks
+          clone:
+            enabled: false
+          artifacts:
+            download: false
+          script:
+            - ssh $SSH_USER@$BASTION_HOST -p $SSH_PORT "cd $PRD_PATH/wp; wp cache flush;"

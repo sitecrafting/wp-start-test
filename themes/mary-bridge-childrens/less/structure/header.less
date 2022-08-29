@@ -1,0 +1,84 @@
+//--------------------
+// HEADER STYLES
+//--------------------
+header.site-header{
+	width: 100%;
+	background: @black;
+	.outer-gutter();
+
+	> .container{
+		height: @header-height;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.logo{
+		display: block;
+		img{ display: block; }
+		&:hover{ text-decoration: none; }
+	}
+
+}//end header.site-header
+
+/* ====================
+	MOBILE MENU BUTTON
+========================*/
+.menu-btn{
+	display: none;
+	z-index: 999999;
+	cursor: pointer;
+    background: transparent;
+    -webkit-appearance: none;
+    border: 0;
+
+	@media @mobile-menu{ display: block; }
+
+	.toggle{
+		position: relative;
+		margin: 0 auto 5px;
+		width: 34px;
+		height: 19px;
+
+		> span{
+			display: block;
+			width: 100%;
+			height: 3px;
+			position: absolute;
+			left: 0;
+			opacity: 1;
+			background: @white;
+			transition: all @trans-speed ease;
+
+			&:nth-child(1){ top: 0; }
+			&:nth-child(2),
+			&:nth-child(3){ top: 8px; }
+			&:nth-child(4){ top: 16px; }
+		}
+	}
+
+	> span{
+		//menu text
+		display: block;
+		margin: 5px 0 0 0;
+		color: @white;
+		font: 700 12px/1 @font-family-headings;
+		text-align: center;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		.text-rendering();
+	}
+
+	&.active{
+		.toggle{
+			> span{
+				&:nth-child(1){ top: 9px; width: 0; left: 50%; }
+				&:nth-child(2){	transform: rotate(45deg); }
+				&:nth-child(3){ transform: rotate(-45deg); }
+				&:nth-child(4){ top: 9px; width: 0; left: 50%; }
+			}
+		}
+	}
+
+	&:hover{ text-decoration: none; }
+}//end .menu-btn

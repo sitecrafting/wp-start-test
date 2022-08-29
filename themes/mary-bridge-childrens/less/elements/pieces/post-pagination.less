@@ -1,0 +1,81 @@
+/* PREV/NEXT BUTTONS */
+.post-pagination{
+	margin: 40px 0;
+    display: flex;
+    justify-content: space-between;
+
+    @media @mobile-all{
+		margin: 30px -0.5px;
+
+        .nav-previous, .nav-next{
+			width: 50%;
+			padding: 0 0.5px;
+            display: flex;
+            .btn{
+                min-width: 0;
+                width: 100%;
+                padding-left: 10px;
+                padding-right: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.4rem;
+            }
+		}
+		
+    }
+
+}
+
+/* PAGINATE_LINKS() */
+.post-pagination--numbers{
+	display: block;
+	margin-left: 0;
+	margin-right: 0;
+	text-align: center;
+
+	.page-numbers{
+		display: inline-block;
+		padding: 0 5px;
+		font: 700 1.6rem/1.1 @font-family-headings;
+		text-transform: uppercase;
+
+		&.prev, &.next{ 
+			position: relative;
+			svg{ 
+				display: block;
+				width: 15px; //height: 15px;
+				position: absolute;
+				top: 0; 
+				path{ fill: @blue; transition: all @trans-speed ease; }
+			}
+		}
+		&.prev{
+			padding-left: 20px;
+			svg{ left: 0; }
+		}
+		&.next{
+			padding-right: 20px;
+			svg{ right: 0; }
+		}
+
+		&:hover{
+			color: @black;
+			text-decoration: none;
+			svg path{ fill: @black; }
+		}
+
+		&.dots{ padding: 0; }
+
+	}//.page-numbers
+
+	@media @mobile-sml{
+		display: flex;
+		justify-content: space-between;
+		.page-numbers{ 
+			display: none; 
+			&.prev, &.next{ display: block; }
+		}
+	}
+
+}
