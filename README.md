@@ -1,4 +1,4 @@
-# MultiCare Capital Partners
+# SiteCrafting Wordpress Start
 
 ## Install
 
@@ -6,12 +6,12 @@
 
 ``` Sh
 cd path/to/workspace
-git clone git@bitbucket.org:sitecrafting/mc-mary-bridge=childrens.git
+git clone git@github.com:sitecrafting/wp-start-test.git
 ```
 
 ### Composer
 
-This site is compiled using Composer and requires a token to load private repositories. A dotENV file called `.env.packagist` is needed to be installed at the root of the repository. It can be found on [Google Drive](https://drive.google.com/file/d/1ePJusogjlmt6_TCJgnZsbWfD2o5K2-zi/view?usp=sharing).
+This site is compiled using Composer and requires a token to load private repositories. A dotENV file called `.env.packagist` is needed to be installed at the root of the repository.
 
 _This is a temporary solution. Hopefully soon we'll have a better solution_
 
