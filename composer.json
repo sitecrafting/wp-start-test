@@ -1,6 +1,6 @@
 {
-    "name": "sitecrafting/mary-bridge-childrens",
-    "description": "WordPress site for MultiCare Capital Partners",
+    "name": "sitecrafting/wp-start-test",
+    "description": "WordPress starter repo",
     "type": "project",
     "repositories": [{
         "type": "composer",
